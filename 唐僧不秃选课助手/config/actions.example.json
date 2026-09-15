@@ -1,0 +1,150 @@
+{
+  "_readme": "接口动作定义。P3 抓包后请用【抓包导入】页校准并覆盖本文件。calibrated=false 表示以下路径/参数为待确认的推测值。",
+  "calibrated": false,
+  "meta": {
+    "site": "zjgsu",
+    "version": "9.0",
+    "gnmkdm": "N253512",
+    "capturedAt": null
+  },
+  "defaults": {
+    "headers": {
+      "Accept": "*/*",
+      "Accept-Language": "zh-CN,zh;q=0.9",
+      "X-Requested-With": "XMLHttpRequest"
+    },
+    "referer": "{baseUrl}/jwglxt/xsxk/zzxkyzb_cxZzxkYzbIndex.html?gnmkdm={gnmkdm}&layout=default",
+    "timeoutMs": 15000,
+    "withTimeParam": true
+  },
+  "vars": {
+    "xnm": "",
+    "xqm": ""
+  },
+  "pages": {
+    "xkIndex": {
+      "method": "GET",
+      "path": "/jwglxt/xsxk/zzxkyzb_cxZzxkYzbIndex.html",
+      "query": {
+        "gnmkdm": "{gnmkdm}",
+        "layout": "default"
+      }
+    }
+  },
+  "valueSources": {
+    "xnm": { "type": "htmlSelect", "page": "xkIndex", "name": "xnm" },
+    "xqm": { "type": "htmlSelect", "page": "xkIndex", "name": "xqm" }
+  },
+  "actions": {
+    "queryCourses": {
+      "label": "查询可选课程",
+      "method": "POST",
+      "path": "/jwglxt/xsxk/zzxkyzb_cxZzxkYzbDisplay.html",
+      "query": { "gnmkdm": "{gnmkdm}" },
+      "contentType": "form",
+      "body": {
+        "xnm": "{xnm}",
+        "xqm": "{xqm}",
+        "kklxdm": "10",
+        "kch_id": "",
+        "kcmc": "{keyword}",
+        "pageNum": "{pageNum}",
+        "pageSize": "{pageSize}"
+      },
+      "extraBody": {},
+      "responseType": "json",
+      "parse": {
+        "okWhen": { "codeField": "code", "okValues": ["1", 1, "0", 0] },
+        "listPath": "items",
+        "totalPath": "totalResult",
+        "errorPath": "msg"
+      },
+      "fieldMap": {
+        "courseId": "kch_id",
+        "classId": "jxb_id",
+        "courseName": "kcmc",
+        "teacher": "jsxx",
+        "time": "jcs",
+        "weekday": "xqjmc",
+        "room": "cdmc",
+        "selected": "jxbrs",
+        "capacity": "jxbzrs",
+        "credits": "xf",
+        "campus": "kkbm",
+        "classCode": "jxb_id",
+        "courseCode": "kch"
+      }
+    },
+    "selectCourse": {
+      "label": "提交选课",
+      "method": "POST",
+      "path": "/jwglxt/xsxk/zzxkyzb_xzYzbKc.html",
+      "query": { "gnmkdm": "{gnmkdm}" },
+      "contentType": "form",
+      "body": {
+        "jxb_ids": "{jxbIds}",
+        "kch_id": "{kchId}",
+        "xkxnm": "{xnm}",
+        "xkxqm": "{xqm}"
+      },
+      "extraBody": {},
+      "responseType": "auto"
+    },
+    "selectedList": {
+      "label": "已选课程列表",
+      "method": "POST",
+      "path": "/jwglxt/xsxk/zzxkyzb_cxXkYzb.html",
+      "query": { "gnmkdm": "{gnmkdm}" },
+      "contentType": "form",
+      "body": {
+        "xnm": "{xnm}",
+        "xqm": "{xqm}",
+        "pageNum": "1",
+        "pageSize": "100"
+      },
+      "extraBody": {},
+      "responseType": "json",
+      "parse": {
+        "okWhen": { "codeField": "code", "okValues": ["1", 1, "0", 0] },
+        "listPath": "items",
+        "totalPath": "totalResult",
+        "errorPath": "msg"
+      },
+      "fieldMap": {
+        "courseId": "kch_id",
+        "classId": "jxb_id",
+        "courseName": "kcmc",
+        "teacher": "jsxx",
+        "time": "jcs",
+        "room": "cdmc",
+        "credits": "xf"
+      }
+    },
+    "dropCourse": {
+      "label": "退课",
+      "method": "POST",
+      "path": "/jwglxt/xsxk/zzxkyzb_tkYzbKc.html",
+      "query": { "gnmkdm": "{gnmkdm}" },
+      "contentType": "form",
+      "body": {
+        "jxb_ids": "{jxbIds}",
+        "kch_id": "{kchId}"
+      },
+      "extraBody": {},
+      "responseType": "auto"
+    },
+    "classDetail": {
+      "label": "教学班详情",
+      "method": "GET",
+      "path": "/jwglxt/xsxk/zzxkyzb_cxJxbzlb.html",
+      "query": { "gnmkdm": "{gnmkdm}", "jxb_id": "{jxbId}" },
+      "contentType": "none",
+      "responseType": "json",
+      "parse": { "listPath": "items" },
+      "fieldMap": {
+        "selected": "jxbrs",
+        "capacity": "jxbzrs"
+      }
+    }
+  }
+}

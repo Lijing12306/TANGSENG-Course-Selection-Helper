@@ -1,0 +1,19 @@
+{
+  "name": "zjgsu-course-grabber",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "浙江工商大学正方教务系统自动选课工具（Node.js 零依赖）",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node src/main.js",
+    "doctor": "node src/main.js doctor",
+    "login": "node src/main.js login",
+    "query": "node src/main.js query",
+    "selftest": "node tools/rsa-selftest.js",
+    "smoke": "node tools/smoke-test.js",
+    "pack": "node tools/build-portable.js"
+  }
+}

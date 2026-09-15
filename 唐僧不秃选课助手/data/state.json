@@ -1,0 +1,37 @@
+{
+  "savedAt": 1789458082314,
+  "tasks": [
+    {
+      "id": "t_1789458065829_1",
+      "name": "线性代数应用案例分析",
+      "target": {
+        "courseName": "线性代数应用案例分析",
+        "kcmcRegex": "线性代数应用案例分析",
+        "teacherRegex": "",
+        "jxbIds": [
+          "5223D2BECDCB06CCE063C98AA8C08A06"
+        ],
+        "keyword": "线性代数应用案例分析",
+        "exclude": []
+      },
+      "mode": "auto",
+      "startAt": "2026-09-14T16:00:00.000Z",
+      "endAt": null,
+      "intervalMs": null,
+      "burstIntervalMs": null,
+      "burstWindowMs": null,
+      "maxAttempts": 0,
+      "state": "paused",
+      "stats": {
+        "polls": 3,
+        "submits": 0,
+        "confirmed": 0,
+        "lastPollAt": 1789458080460
+      },
+      "lastMsg": "第 3 次轮询：线性代数应用案例分析 已满（53/53）",
+      "lastErr": "",
+      "createdAt": 1789458065829,
+      "updatedAt": 1789458082314
+    }
+  ]
+}

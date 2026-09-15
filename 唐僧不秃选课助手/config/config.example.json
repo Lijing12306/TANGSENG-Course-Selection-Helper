@@ -1,0 +1,91 @@
+{
+  "baseUrl": "https://jwxt.zjgsu.edu.cn",
+  "server": {
+    "host": "127.0.0.1",
+    "port": 8787,
+    "openBrowser": true
+  },
+  "account": {
+    "username": "",
+    "password": ""
+  },
+  "session": {
+    "loginPath": "/jwglxt/xtgl/login_slogin.html",
+    "publicKeyPath": "/jwglxt/xtgl/login_getPublicKey.html",
+    "logoutAccountPath": "/jwglxt/xtgl/login_logoutAccount.html",
+    "captchaPath": "/jwglxt/kaptcha",
+    "probePath": "/jwglxt/xtgl/index_initMenu.html",
+    "probeMaxAgeMs": 60000,
+    "maxLoginAttempts": 3,
+    "preLoginLogout": true,
+    "clickIndexOnLogin": false,
+    "manualCookie": ""
+  },
+  "term": {
+    "xnm": "",
+    "xqm": ""
+  },
+  "engine": {
+    "requestsPerSecond": 1,
+    "burstRequestsPerSecond": 2,
+    "maxConcurrentRequests": 2,
+    "defaultIntervalMs": 3000,
+    "defaultBurstIntervalMs": 700,
+    "defaultBurstWindowMs": 15000,
+    "burstLeadMs": 15000,
+    "busyCooldownMs": 60000,
+    "dedupeWindowMs": 10000,
+    "capacityUnknownFallback": "always-try",
+    "dryRun": false
+  },
+  "notify": {
+    "dedupeWindowMs": 60000,
+    "channels": [
+      {
+        "type": "local",
+        "enabled": true,
+        "events": ["select-success", "select-fatal", "login-fail", "captcha-required", "task-expired"],
+        "sound": true,
+        "toast": true
+      },
+      {
+        "type": "browser",
+        "enabled": true,
+        "events": ["*"]
+      },
+      {
+        "type": "webhook",
+        "enabled": false,
+        "provider": "pushplus",
+        "token": "",
+        "events": ["select-success", "select-fatal"]
+      },
+      {
+        "type": "webhook",
+        "enabled": false,
+        "provider": "serverchan",
+        "sendKey": "",
+        "events": ["select-success", "select-fatal"]
+      },
+      {
+        "type": "webhook",
+        "enabled": false,
+        "provider": "wecom",
+        "webhookKey": "",
+        "events": ["*"]
+      },
+      {
+        "type": "webhook",
+        "enabled": false,
+        "provider": "dingtalk",
+        "accessToken": "",
+        "secret": "",
+        "events": ["*"]
+      }
+    ]
+  },
+  "log": {
+    "level": "info",
+    "dir": "data/logs"
+  }
+}

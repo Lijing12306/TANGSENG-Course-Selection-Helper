@@ -1,0 +1,20 @@
+[
+  {
+    "name": "route",
+    "value": "c4c2c073b435022fddf0c05f64590dea",
+    "domain": null,
+    "path": "/",
+    "expires": null,
+    "secure": false,
+    "httpOnly": false
+  },
+  {
+    "name": "JSESSIONID",
+    "value": "8E2A3D4E0E0C6F453666BC333D5177BE",
+    "domain": null,
+    "path": "/",
+    "expires": null,
+    "secure": false,
+    "httpOnly": false
+  }
+]

@@ -1,0 +1,20 @@
+2026-09-15T07:39:18.944Z INFO Web 控制台已启动 {"host":"127.0.0.1","port":8787}
+2026-09-15T07:39:23.857Z DEBUG [selectedList] 302 956ms {"url":"/jwglxt/xsxk/zzxkyzb_cxXkYzb.html","verdict":"unknown"}
+2026-09-15T07:39:25.789Z DEBUG [selectedList] 302 17ms {"url":"/jwglxt/xsxk/zzxkyzb_cxXkYzb.html","verdict":"unknown"}
+2026-09-15T07:39:44.225Z INFO Web 控制台已启动 {"host":"127.0.0.1","port":8787}
+2026-09-15T07:40:00.083Z INFO 已载入手动 Cookie 2 项
+2026-09-15T07:40:05.176Z DEBUG [selectedList] 910 393ms {"url":"/jwglxt/xsxk/zzxkyzb_cxXkYzb.html","verdict":"unknown"}
+2026-09-15T07:40:06.195Z DEBUG [selectedList] 910 509ms {"url":"/jwglxt/xsxk/zzxkyzb_cxXkYzb.html","verdict":"unknown"}
+2026-09-15T07:40:08.343Z DEBUG [queryCourses] 200 70ms {"url":"/jwglxt/xsxk/zzxkyzb_cxZzxkYzbPartDisplay.html","verdict":"unknown"}
+2026-09-15T07:40:09.331Z DEBUG [classDetail] 200 986ms {"url":"/jwglxt/xsxk/zzxkyzb_cxJxbWithKchZzxkYzb.html","verdict":"unknown"}
+2026-09-15T07:41:05.831Z INFO 新建任务：线性代数应用案例分析 (线性代数应用案例分析 /线性代数应用案例分析/ 教学班×1)
+2026-09-15T07:41:10.238Z INFO 引擎已启动
+2026-09-15T07:41:10.241Z INFO 崩溃恢复：检查 1 个任务是否已选上
+2026-09-15T07:41:11.275Z DEBUG [selectedList] 910 403ms {"url":"/jwglxt/xsxk/zzxkyzb_cxXkYzb.html","verdict":"unknown"}
+2026-09-15T07:41:11.278Z INFO 恢复：线性代数应用案例分析 未选上，继续监控
+2026-09-15T07:41:12.342Z DEBUG [queryCourses] 200 840ms {"url":"/jwglxt/xsxk/zzxkyzb_cxZzxkYzbPartDisplay.html","verdict":"unknown"}
+2026-09-15T07:41:13.327Z DEBUG [classDetail] 200 983ms {"url":"/jwglxt/xsxk/zzxkyzb_cxJxbWithKchZzxkYzb.html","verdict":"unknown"}
+2026-09-15T07:41:16.508Z DEBUG [queryCourses] 200 59ms {"url":"/jwglxt/xsxk/zzxkyzb_cxZzxkYzbPartDisplay.html","verdict":"unknown"}
+2026-09-15T07:41:17.515Z DEBUG [classDetail] 200 1004ms {"url":"/jwglxt/xsxk/zzxkyzb_cxJxbWithKchZzxkYzb.html","verdict":"unknown"}
+2026-09-15T07:41:20.458Z DEBUG [queryCourses] 200 73ms {"url":"/jwglxt/xsxk/zzxkyzb_cxZzxkYzbPartDisplay.html","verdict":"unknown"}
+2026-09-15T07:41:21.451Z DEBUG [classDetail] 200 991ms {"url":"/jwglxt/xsxk/zzxkyzb_cxJxbWithKchZzxkYzb.html","verdict":"unknown"}

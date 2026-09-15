@@ -1,0 +1,16 @@
+{
+  "_readme": "选课结果判定规则。type: success=成功收工 | done=等价成功(已选过) | retry=立即重试 | cooldown=冷却后重试 | cooldownTime=等选课时间 | fatal=停止并通知。规则按顺序匹配，命中即返回。",
+  "rules": [
+    { "id": "flag-ok", "type": "success", "patterns": ["\"flag\"\\s*:\\s*\"?1\"?\\s*[,}]"] },
+    { "id": "flag-done", "type": "done", "patterns": ["\"flag\"\\s*:\\s*\"?6\"?\\s*[,}]"] },
+    { "id": "flag-full", "type": "retry", "cooldownMs": 1500, "patterns": ["\"flag\"\\s*:\\s*\"?-1\"?\\s*[,}]"] },
+    { "id": "ok", "type": "success", "patterns": ["\"code\"\\s*:\\s*[\"']?1[\"']?", "选课成功", "\"success\"\\s*:\\s*true"] },
+    { "id": "dup", "type": "done", "patterns": ["已选该课程", "已经选过", "重复选课", "该课程已选"] },
+    { "id": "full", "type": "retry", "cooldownMs": 1500, "patterns": ["人数已满", "名额已满", "教学班人数已满", "已满"] },
+    { "id": "conflict", "type": "fatal", "patterns": ["上课时间冲突", "课程冲突", "已选课程冲突", "时间冲突"] },
+    { "id": "credit", "type": "fatal", "patterns": ["学分已满", "超过学分上限", "学分超出"] },
+    { "id": "closed", "type": "cooldownTime", "cooldownMs": 60000, "patterns": ["不在选课时间", "选课未开始", "选课已结束", "已停选", "选课时间"] },
+    { "id": "notopen", "type": "retry", "cooldownMs": 3000, "patterns": ["未开放", "不可选", "该教学班不开放"] },
+    { "id": "busy", "type": "cooldown", "cooldownMs": 60000, "patterns": ["操作过于频繁", "请求频率", "请稍后再试", "系统繁忙", "访问过于频繁"] }
+  ]
+}

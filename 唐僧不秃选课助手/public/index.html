@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>选课助手 · 浙江工商大学教务系统</title>
+<link rel="stylesheet" href="/assets/ui.css" />
+</head>
+<body>
+<header>
+  <h1>选课助手</h1>
+  <span class="badge" id="badge-session">未登录</span>
+  <span class="badge" id="badge-engine">引擎已停止</span>
+  <span class="badge" id="badge-calib">接口未校准</span>
+  <span class="badge" id="badge-sse">连接中</span>
+  <span class="spacer"></span>
+  <button class="btn sm ghost" id="btn-notify-enable">开启浏览器通知</button>
+  <button class="btn sm ghost" id="btn-refresh">刷新</button>
+  <button class="btn sm" id="btn-engine-start">启动引擎</button>
+  <button class="btn sm danger" id="btn-engine-stop">停止引擎</button>
+</header>
+
+<nav>
+  <button data-view="dashboard" class="active">总览</button>
+  <button data-view="tasks">任务</button>
+  <button data-view="courses">课程</button>
+  <button data-view="capture">抓包导入</button>
+  <button data-view="settings">设置</button>
+  <button data-view="logs">日志</button>
+</nav>
+
+<main>
+  <!-- ================= 总览 ================= -->
+  <section class="view active" id="view-dashboard">
+    <div class="card">
+      <h2>会话与引擎</h2>
+      <div class="grid c3">
+        <div class="stat"><div class="k">Cookies</div><div class="v" id="stat-cookies" style="font-size:13px">-</div></div>
+        <div class="stat"><div class="k">JSESSIONID / route</div><div class="v"><span id="stat-jsession">-</span> / <span id="stat-route">-</span></div></div>
+        <div class="stat"><div class="k">请求速率</div><div class="v" id="stat-rps">-</div></div>
+        <div class="stat"><div class="k">任务数</div><div class="v" id="stat-tasks">-</div></div>
+        <div class="stat"><div class="k">任务状态分布</div><div class="v" id="stat-counts" style="font-size:13px">-</div></div>
+        <div class="stat"><div class="k">引擎运行时长</div><div class="v" id="stat-uptime">-</div></div>
+      </div>
+      <div class="row" style="margin-top:12px">
+        <div class="fixed"><button class="btn" id="btn-login">立即登录</button></div>
+        <div class="fixed"><button class="btn ghost" id="btn-logout">退出会话</button></div>
+      </div>
+      <div id="captcha-box" style="display:none;margin-top:12px;border-top:1px solid var(--border);padding-top:12px">
+        <label>该账号登录需要验证码（点击图片可刷新）</label>
+        <div class="row">
+          <div class="fixed"><img id="captcha-img" alt="验证码" style="cursor:pointer;height:40px;border-radius:6px;background:#fff;padding:2px" /></div>
+          <div style="max-width:160px"><input id="cfg-captcha" placeholder="输入验证码" autocomplete="off" /></div>
+          <div class="fixed"><button class="btn sm" id="btn-captcha-submit">提交登录</button></div>
+        </div>
+        <p class="hint" id="captcha-msg"></p>
+      </div>
+      <p class="hint">账号密码请在【设置】中填写并保存；填写后点「立即登录」验证。</p>
+    </div>
+    <div class="card">
+      <h2>实时日志</h2>
+      <div class="logbox" id="logs-dashboard"></div>
+    </div>
+  </section>
+
+  <!-- ================= 任务 ================= -->
+  <section class="view" id="view-tasks">
+    <div class="card">
+      <h2>监控任务</h2>
+      <table>
+        <thead><tr><th>任务</th><th>状态</th><th>轮询</th><th>提交</th><th>最近消息</th><th>操作</th></tr></thead>
+        <tbody id="tasks-body"><tr><td colspan="6" class="hint">加载中…</td></tr></tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h2>新建任务</h2>
+      <div class="row">
+        <div><label>任务名</label><input id="task-name" placeholder="如：数据结构-王老师" /></div>
+        <div><label>课程名（支持正则）</label><input id="task-kcmc" placeholder="如：^数据结构" /></div>
+        <div><label>教师（正则）</label><input id="task-teacher" placeholder="如：王" /></div>
+      </div>
+      <div class="row">
+        <div><label>教学班 ID（可多个，逗号分隔，优先按顺序）</label><input id="task-jxb" placeholder="如：2026-2027-1-...-1" /></div>
+        <div><label>查询关键词（可选）</label><input id="task-keyword" placeholder="如：数据结构" /></div>
+      </div>
+      <div class="row">
+        <div><label>模式</label><select id="task-mode"><option value="auto">自动抢（有名额就提交）</option><option value="watch">仅监控提醒</option></select></div>
+        <div><label>开抢时间（可选，留空即立即）</label><input id="task-start" type="datetime-local" /></div>
+        <div class="fixed"><button class="btn" id="btn-task-create">创建任务</button></div>
+      </div>
+      <p class="hint">提示：在【课程】页查询到目标课程后点「加入监控」会自动填充本表单。</p>
+    </div>
+  </section>
+
+  <!-- ================= 课程 ================= -->
+  <section class="view" id="view-courses">
+    <div class="card">
+      <h2>可选课程查询</h2>
+      <div class="row">
+        <div><label>关键词（课程名 / 课程号 / 教师）</label><input id="course-kw" placeholder="如：数据结构" /></div>
+        <div class="fixed"><button class="btn" id="btn-course-search">查询</button></div>
+      </div>
+      <table>
+        <thead><tr><th>课程名</th><th>教师</th><th>时间</th><th>余量</th><th>已选/容量</th><th>教学班</th><th>操作</th></tr></thead>
+        <tbody id="courses-body"><tr><td colspan="7" class="hint">输入关键词后点查询</td></tr></tbody>
+      </table>
+      <p class="hint">若提示「接口未校准」，请先到【抓包导入】完成一次抓包并应用。</p>
+    </div>
+    <div class="card">
+      <h2>已选课程</h2>
+      <div class="fixed" style="margin-bottom:8px"><button class="btn ghost sm" id="btn-selected-refresh">刷新已选</button></div>
+      <table>
+        <thead><tr><th>课程名</th><th>教师</th><th>时间</th><th>教学班</th><th>操作</th></tr></thead>
+        <tbody id="selected-body"><tr><td colspan="5" class="hint">点上方按钮加载</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ================= 抓包导入 ================= -->
+  <section class="view" id="view-capture">
+    <div class="card">
+      <h2>第一步：把抓包脚本粘贴到浏览器控制台</h2>
+      <ol class="steps">
+        <li>浏览器打开并<strong>登录</strong>选课页（地址含 <code class="inline">zzxkyzb_cxZzxkYzbIndex.html</code>）</li>
+        <li>按 <code class="inline">F12</code> → 切到 <strong>Console（控制台）</strong></li>
+        <li>点下面的「复制抓包脚本」，粘贴到控制台并回车（看到绿色 <code class="inline">[capture] 已安装 ✅</code>）</li>
+        <li>在控制台执行 <code class="inline">__capMark("选课")</code>，然后<strong>手动点一次「选课」按钮</strong>并等待出结果</li>
+        <li>执行 <code class="inline">__capTable()</code> 确认抓到了 <code class="inline">zzxkyzb</code> 的 POST</li>
+        <li>执行 <code class="inline">__capCopy()</code> 复制，或 <code class="inline">__capDownload()</code> 下载文件</li>
+      </ol>
+      <div class="fixed"><button class="btn" id="btn-snippet-copy">复制抓包脚本</button></div>
+      <pre class="diff" id="snippet" style="max-height:220px"></pre>
+      <p class="hint">该脚本只记录你手动操作的那一次请求，不会自动重放、不会自动提交。</p>
+    </div>
+    <div class="card">
+      <h2>第二步：粘贴抓包结果并应用</h2>
+      <p class="hint">支持粘贴抓包 JSON，也支持浏览器「Copy as cURL」的内容。</p>
+      <textarea id="capture-input" placeholder="在此粘贴 __capCopy() 得到的 JSON，或 Copy as cURL 的整段文本"></textarea>
+      <div class="row" style="margin-top:10px">
+        <div class="fixed"><button class="btn" id="btn-capture-import">解析并对比差异</button></div>
+        <div class="fixed"><button class="btn" id="btn-apply-capture" disabled>应用并标记为已校准</button></div>
+      </div>
+      <p class="hint" id="capture-summary"></p>
+      <h2 style="margin-top:14px">差异对比（配置 vs 实际抓包）</h2>
+      <pre class="diff" id="capture-diff">（尚未导入）</pre>
+    </div>
+  </section>
+
+  <!-- ================= 设置 ================= -->
+  <section class="view" id="view-settings">
+    <div class="card">
+      <h2>账号与学期</h2>
+      <div class="row">
+        <div><label>学号</label><input id="cfg-username" autocomplete="off" /></div>
+        <div><label>密码（留空表示不修改）</label><input id="cfg-password" type="password" autocomplete="new-password" /></div>
+      </div>
+      <div class="row">
+        <div><label>学年 xnm（留空自动解析）</label><input id="cfg-xnm" placeholder="如 2026" /></div>
+        <div><label>学期 xqm（留空自动解析）</label><input id="cfg-xqm" placeholder="如 3" /></div>
+      </div>
+      <p class="hint">密码以 scrypt + AES-256-GCM 加密保存在 data/secrets.json，不会写入日志。</p>
+    </div>
+    <div class="card">
+      <h2>频率与风控（建议保持默认）</h2>
+      <div class="row">
+        <div><label>稳态请求速率（次/秒）</label><input id="cfg-rps" type="number" min="0.2" step="0.1" /></div>
+        <div><label>最大并发请求</label><input id="cfg-concurrent" type="number" min="1" step="1" /></div>
+        <div><label>默认轮询间隔（毫秒）</label><input id="cfg-interval" type="number" min="1000" step="500" /></div>
+      </div>
+      <label><input type="checkbox" id="cfg-dryrun" style="width:auto" /> 试运行模式（不真正提交选课，仅记录）</label>
+    </div>
+    <div class="card">
+      <h2>手动 Cookie（降级方案）</h2>
+      <label>当自动登录被验证码/CAS 阻断时，可在此粘贴浏览器里的 Cookie</label>
+      <input id="cfg-manualcookie" placeholder="JSESSIONID=xxx; route=xxx" />
+    </div>
+    <div class="card">
+      <h2>通知</h2>
+      <div class="fixed"><button class="btn ghost" id="btn-notify-test">测试所有已启用通道</button></div>
+      <p class="hint">Webhook 通道（PushPlus / Server酱 / 企业微信 / 钉钉）请在 config/config.json 的 notify.channels 中配置。</p>
+    </div>
+    <div class="card">
+      <div class="row">
+        <div class="fixed"><button class="btn" id="btn-config-save">保存设置</button></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>接口定义 actions.json（高级）</h2>
+      <p class="hint">一般无需手动编辑，抓包导入会自动更新。保存后热重载生效。</p>
+      <textarea id="actions-editor" style="min-height:320px"></textarea>
+      <div class="row" style="margin-top:10px">
+        <div class="fixed"><button class="btn ghost" id="btn-actions-reload">重新载入</button></div>
+        <div class="fixed"><button class="btn" id="btn-actions-save">保存接口定义</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 日志 ================= -->
+  <section class="view" id="view-logs">
+    <div class="card">
+      <h2>服务器日志</h2>
+      <label style="margin-bottom:8px"><input type="checkbox" id="log-autoscroll" checked style="width:auto" /> 自动滚动</label>
+      <div class="logbox" id="logs-full"></div>
+    </div>
+  </section>
+</main>
+
+<script type="module" src="/assets/app.js"></script>
+</body>
+</html>

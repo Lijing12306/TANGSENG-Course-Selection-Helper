@@ -1,0 +1,255 @@
+{
+  "_readme": "接口动作定义。P3 抓包后请用【抓包导入】页校准并覆盖本文件。calibrated=false 表示以下路径/参数为待确认的推测值。",
+  "calibrated": true,
+  "meta": {
+    "site": "zjgsu",
+    "version": "9.0",
+    "gnmkdm": "N253512",
+    "capturedAt": "2026-09-15T06:35:06.779Z"
+  },
+  "defaults": {
+    "headers": {
+      "Accept": "*/*",
+      "Accept-Language": "zh-CN,zh;q=0.9",
+      "X-Requested-With": "XMLHttpRequest"
+    },
+    "referer": "{baseUrl}/jwglxt/xsxk/zzxkyzb_cxZzxkYzbIndex.html?gnmkdm={gnmkdm}&layout=default",
+    "timeoutMs": 15000,
+    "withTimeParam": true
+  },
+  "vars": {
+    "xnm": "",
+    "xqm": ""
+  },
+  "pages": {
+    "xkIndex": {
+      "method": "GET",
+      "path": "/jwglxt/xsxk/zzxkyzb_cxZzxkYzbIndex.html",
+      "query": {
+        "gnmkdm": "{gnmkdm}",
+        "layout": "default"
+      }
+    }
+  },
+  "valueSources": {
+    "xnm": {
+      "type": "htmlSelect",
+      "page": "xkIndex",
+      "name": "xnm"
+    },
+    "xqm": {
+      "type": "htmlSelect",
+      "page": "xkIndex",
+      "name": "xqm"
+    }
+  },
+  "actions": {
+    "queryCourses": {
+      "label": "查询可选课程",
+      "method": "POST",
+      "path": "/jwglxt/xsxk/zzxkyzb_cxZzxkYzbPartDisplay.html",
+      "query": {
+        "gnmkdm": "{gnmkdm}"
+      },
+      "contentType": "form",
+      "body": {
+        "filter_list[0]": "{keyword}",
+        "rwlx": "2",
+        "xkly": "0",
+        "bklx_id": "0",
+        "xh_id": "2511060528",
+        "xqh_id": "2",
+        "jg_id": "11",
+        "zyh_id": "1101",
+        "zyfx_id": "wfx",
+        "njdm_id": "2025",
+        "bh_id": "42BB334E037CDD8DE063CA8AA8C008FF",
+        "xbm": "1",
+        "xslbdm": "wlb",
+        "ccdm": "3",
+        "xsbj": "4294967296",
+        "sfkknj": "0",
+        "sfkkzy": "0",
+        "sfkxq": "0",
+        "kkbk": "0",
+        "kkbkdj": "0",
+        "sfkgbcx": "0",
+        "sfrxtgkcxd": "0",
+        "tykczgxdcs": "0",
+        "xkxnm": "{xnm}",
+        "xkxqm": "{xqm}",
+        "kklxdm": "10",
+        "kspage": "{pageNum}",
+        "jspage": "{pageSize}"
+      },
+      "extraBody": {},
+      "responseType": "json",
+      "parse": {
+        "okWhen": {
+          "codeField": "code",
+          "okValues": [
+            "1",
+            1,
+            "0",
+            0
+          ]
+        },
+        "listPath": "items",
+        "totalPath": "totalResult",
+        "errorPath": "msg"
+      },
+      "fieldMap": {
+        "courseId": "kch_id",
+        "classId": "jxb_id",
+        "courseName": "kcmc",
+        "classCode": "jxb_id",
+        "courseCode": "kch",
+        "credits": "xf",
+        "teacher": "jsxx",
+        "time": "jcs",
+        "weekday": "xqjmc",
+        "room": "cdmc",
+        "selected": "jxbrs",
+        "capacity": "jxbzrs",
+        "campus": "kkbm"
+      }
+    },
+    "selectCourse": {
+      "label": "selectCourse",
+      "method": "POST",
+      "path": "/jwglxt/xsxk/zzxkyzb_xkBcZyZzxkYzb.html",
+      "query": {
+        "gnmkdm": "{gnmkdm}"
+      },
+      "contentType": "form",
+      "body": {
+        "jxb_ids": "{jxbIds}",
+        "kch_id": "{kchId}",
+        "xkxnm": "{xnm}",
+        "xkxqm": "{xqm}",
+        "kcmc": "{keyword}",
+        "rwlx": "2",
+        "rlzlkz": "1",
+        "sxbj": "1",
+        "xxkbj": "0",
+        "qz": "0",
+        "cxbj": "0",
+        "xkkz_id": "5B2B6FA72E67D967E063CA8AA8C0212D",
+        "njdm_id": "2025",
+        "zyh_id": "1101",
+        "kklxdm": "10",
+        "xklc": "3"
+      },
+      "extraBody": {},
+      "responseType": "json"
+    },
+    "selectedList": {
+      "label": "已选课程列表",
+      "method": "POST",
+      "path": "/jwglxt/xsxk/zzxkyzb_cxXkYzb.html",
+      "query": {
+        "gnmkdm": "{gnmkdm}"
+      },
+      "contentType": "form",
+      "body": {
+        "xnm": "{xnm}",
+        "xqm": "{xqm}",
+        "pageNum": "1",
+        "pageSize": "100"
+      },
+      "extraBody": {},
+      "responseType": "json",
+      "parse": {
+        "okWhen": {
+          "codeField": "code",
+          "okValues": [
+            "1",
+            1,
+            "0",
+            0
+          ]
+        },
+        "listPath": "items",
+        "totalPath": "totalResult",
+        "errorPath": "msg"
+      },
+      "fieldMap": {
+        "courseId": "kch_id",
+        "classId": "jxb_id",
+        "courseName": "kcmc",
+        "teacher": "jsxx",
+        "time": "jcs",
+        "room": "cdmc",
+        "credits": "xf"
+      }
+    },
+    "dropCourse": {
+      "label": "退课",
+      "method": "POST",
+      "path": "/jwglxt/xsxk/zzxkyzb_tkYzbKc.html",
+      "query": {
+        "gnmkdm": "{gnmkdm}"
+      },
+      "contentType": "form",
+      "body": {
+        "jxb_ids": "{jxbIds}",
+        "kch_id": "{kchId}"
+      },
+      "extraBody": {},
+      "responseType": "auto"
+    },
+    "classDetail": {
+      "label": "教学班详情",
+      "method": "POST",
+      "path": "/jwglxt/xsxk/zzxkyzb_cxJxbWithKchZzxkYzb.html",
+      "query": {
+        "gnmkdm": "{gnmkdm}"
+      },
+      "contentType": "form",
+      "body": {
+        "filter_list[0]": "{keyword}",
+        "rwlx": "2",
+        "xkly": "0",
+        "bklx_id": "0",
+        "xh_id": "2511060528",
+        "xqh_id": "2",
+        "jg_id": "11",
+        "zyh_id": "1101",
+        "zyfx_id": "wfx",
+        "njdm_id": "2025",
+        "bh_id": "42BB334E037CDD8DE063CA8AA8C008FF",
+        "xbm": "1",
+        "xslbdm": "wlb",
+        "ccdm": "3",
+        "xsbj": "4294967296",
+        "sfkknj": "0",
+        "sfkkzy": "0",
+        "sfkxq": "0",
+        "kkbk": "0",
+        "kkbkdj": "0",
+        "sfkgbcx": "0",
+        "sfrxtgkcxd": "0",
+        "tykczgxdcs": "0",
+        "xkxnm": "{xnm}",
+        "xkkz_id": "5B2B6FA72E67D967E063CA8AA8C0212D",
+        "xkxqm": "{xqm}",
+        "kklxdm": "10",
+        "kch_id": "{kchId}"
+      },
+      "extraBody": {},
+      "responseType": "json",
+      "parse": {
+        "listPath": "items"
+      },
+      "fieldMap": {
+        "classId": "jxb_id",
+        "doJxbId": "do_jxb_id",
+        "teacher": "jsxx",
+        "selected": "jxbrs",
+        "capacity": "jxbrl",
+        "room": "jxdd",
+        "time": "sksj"
+      }
+    }
+  }
+}
